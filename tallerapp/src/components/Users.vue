@@ -30,6 +30,7 @@
       </v-text-field>
       <v-icon @click="searchUsers()">search</v-icon>
     </v-card-title>
+
     <v-simple-table height="350px">
       <template v-slot:default>
         <thead>
@@ -40,7 +41,7 @@
             <th class="text-center">Válido hasta</th>
             <th class="text-center">Sede</th>
             <th class="text-center">¿Está activo?</th>
-            <th class="text-center">Actions</th>
+            <th class="text-center">Acciones</th>
           </tr>
         </thead>
         <tbody>

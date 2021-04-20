@@ -152,7 +152,6 @@ export default {
         lastname: "",
         email: "",
         password: "",
-        initDate: null,
         finalDate: null,
         campus: "",
         active: false,

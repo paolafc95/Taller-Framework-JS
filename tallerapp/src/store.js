@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import {db} from "./main";
+import {db} from "../src/main";
 import firebase from "firebase/app";
 
 Vue.use(Vuex);
@@ -23,7 +23,7 @@ export default new Vuex.Store({
                         if(doc.data().id === payload.id){
                             payload.id = doc.id;
                             db.collection("campuses").doc(doc.id).update(payload);
-                            state.dependencies.push(payload);
+                            state.campuses.push(payload);
                         }
                     });
                 });
@@ -47,14 +47,14 @@ export default new Vuex.Store({
                     });
                 });
                 
-                state.campuses.forEach(dep => {
-                    if(dep.id === payload.campus){
-                        dep.users.push(payload);
+                state.campuses.forEach(cam => {
+                    if(cam.id === payload.campus){
+                        cam.users.push(payload);
                     }
                 });
 
-                db.collection("campuses").get().then((dep) => {
-                    dep.forEach(doc => {
+                db.collection("campuses").get().then((cam) => {
+                    cam.forEach(doc => {
                         if(doc.date().id === payload.campus){
                             db.collection("campuses").doc(doc.id).update({
                                 users: firebase.firestore.FieldValue.arrayUnion(payload)
@@ -75,25 +75,25 @@ export default new Vuex.Store({
                 let index = state.users.indexOf(newUser);
                 state.users[index] = payload;
 
-                state.campuses.forEach(dep => {
-                    dep.users.forEach((usr, index) => {
+                state.campuses.forEach(cam => {
+                    cam.users.forEach((usr, index) => {
                         if(payload.id === usr.id){
-                            dep.users[index] = payload;
+                            cam.users[index] = payload;
                         }
                     });
                 });
             }else{
-                state.campuses.forEach(dep => {
-                    if(dep.id === newUser.campus){
-                        dep.users.splice(newUser, 1);
+                state.campuses.forEach(cam => {
+                    if(cam.id === newUser.campus){
+                        cam.users.splice(newUser, 1);
                     }
                 });
                 let index = state.users.indexOf(newUser);
                 state.users[index] = payload;
 
-                state.campuses.forEach(dep => {
-                    if(dep.id === payload.campus){
-                        dep.users.push(payload);
+                state.campuses.forEach(cam => {
+                    if(cam.id === payload.campus){
+                        cam.users.push(payload);
                     }
                 });
             }
@@ -108,11 +108,11 @@ export default new Vuex.Store({
                 });
             });
 
-            this.state.dependencies.forEach(dep => {
+            this.state.campuses.forEach(cam => {
                 db.collection("campuses").get().then(us => {
                     us.forEach(doc => {
-                        if(dep.id === doc.data().id){
-                            db.collection("campuses").doc(doc.id).update(dep);
+                        if(cam.id === doc.data().id){
+                            db.collection("campuses").doc(doc.id).update(cam);
                         }
                     });
                 });
@@ -129,8 +129,8 @@ export default new Vuex.Store({
                     })
                 });
 
-                let newDep = state.campuses.find(us => us.id === payload.id);
-                let index = state.campuses.indexOf(newDep);
+                let newCam = state.campuses.find(us => us.id === payload.id);
+                let index = state.campuses.indexOf(newCam);
                 state.campuses[index] = payload;
             }catch(error){
                 console.log(error);
@@ -147,8 +147,8 @@ export default new Vuex.Store({
                     });
                 });
 
-                db.collection("campuses").get().then(dep => {
-                    dep.forEach(doc => {
+                db.collection("campuses").get().then(cam => {
+                    cam.forEach(doc => {
                         doc.data().users.forEach(usr => {
                             if(usr.id === payload.id){
                                 db.collection("campuses").doc(doc.id).update({
@@ -165,9 +165,9 @@ export default new Vuex.Store({
                     }
                 });
 
-                state.dependencies.forEach(dep => {
-                    if(dep.users.includes(payload)){
-                        dep.users.splice(payload, 1);
+                state.campuses.forEach(cam => {
+                    if(cam.users.includes(payload)){
+                        cam.users.splice(payload, 1);
                     }
                 });
             }catch(error){
@@ -185,8 +185,8 @@ export default new Vuex.Store({
                     });
                 });
 
-                state.campuses.forEach((dep, index) => {
-                    if(dep.id === payload.id){
+                state.campuses.forEach((cam, index) => {
+                    if(cam.id === payload.id){
                         state.campuses.slice(index, 1);
                     }
                 });
