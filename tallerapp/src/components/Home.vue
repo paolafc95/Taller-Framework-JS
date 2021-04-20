@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-main wrap>
+    <v-main wrap >
       <v-card width="700" elevation="17" flat class="mx-auto mt-9">
         <v-card-title class="justify-center">Unirse ahora</v-card-title>
         <!-- <v-card-subtitle class="justify-center">welcome</v-card-subtitle> -->
@@ -146,7 +146,7 @@ export default {
 </script>
 
 <style>
-.home-bg {
+#home-bg {
   background-image: url("https://cgfrog.com/wp-content/uploads/2019/02/Download-free-gradients-for-photoshop-background-ui-electric-violet.jpg");
   background-repeat: no-repeat;
   background-size: cover;
