@@ -1,3 +1,5 @@
-module.exports = {
-  publicPath: '/Taller-Framework-JS/'
+  module.exports = {
+    publicPath: process.env.NODE_ENV === 'production'
+      ? '/Taller-Framework-JS/'
+      : '/'
   }
