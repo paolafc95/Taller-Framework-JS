@@ -1,5 +1,5 @@
 <template>
-  <v-card width="500" shaped elevation="17" class="mx-auto mt-9">
+  <v-card width="700"  elevation="17" class="mx-auto mt-9">
     <v-card-title class="justify-center">Sign Up</v-card-title>
     <v-card-subtitle class="justify-center"
       >Registrar usuario</v-card-subtitle
@@ -13,7 +13,7 @@
               required
               label="Nombre"
               :rules="nameRules"
-              prepend-icon="perm_identity"
+              prepend-icon="badge"
             />
           </v-col>
           <v-col cols="12" md="6">
@@ -22,7 +22,7 @@
               required
               :rules="lastNameRules"
               label="Apellido"
-              prepend-icon="person_outline"
+              prepend-icon="badge"
             />
           </v-col>
         </v-row>
@@ -33,7 +33,7 @@
               required
               :rules="emailRules"
               label="Correo"
-              prepend-icon="account_circle"
+              prepend-icon="alternate_email"
             />
           </v-col>
           <v-col cols="12" md="6">
@@ -42,49 +42,12 @@
               required
               :rules="passwordRules"
               label="Contraseña"
-              prepend-icon="vpn_key"
+              prepend-icon="lock"
             />
           </v-col>
         </v-row>
-        <v-row>
-          <v-col cols="12" md="6">
-            <v-menu
-              ref="menu1"
-              v-model="menu1"
-              :close-on-content-click="false"
-              :nudge-right="40"
-              :return-value.sync="user.initDate"
-              transition="scale-transition"
-              offset-y
-              min-width="290px"
-            >
-              <template v-slot:activator="{ on }">
-                <v-text-field
-                  :rules="dateRules"
-                  v-model="user.initDate"
-                  label="Initial Date"
-                  prepend-icon="event"
-                  readonly
-                  v-on="on"
-                  required
-                ></v-text-field>
-              </template>
-              <v-date-picker
-                :rules="dateRules"
-                v-model="user.initDate"
-                no-title
-                scrollable
-                required
-              >
-                <v-spacer></v-spacer>
-                <v-btn color="primary" @click="menu1 = false">Cancelar</v-btn>
-                <v-btn color="primary" @click="$refs.menu1.save(user.initDate)"
-                  >OK</v-btn
-                >
-              </v-date-picker>
-            </v-menu>
-          </v-col>
 
+        <v-row> 
           <v-col cols="12" md="6">
             <v-menu
               ref="menu2"
@@ -101,7 +64,7 @@
                   :rules="dateRules"
                   v-model="user.finalDate"
                   label="Válido hasta"
-                  prepend-icon="event"
+                  prepend-icon="event_available"
                   readonly
                   v-on="on"
                   required
@@ -115,16 +78,14 @@
                 required
               >
                 <v-spacer></v-spacer>
-                <v-btn color="primary" @click="menu2 = false">Cancelar</v-btn>
-                <v-btn color="primary" @click="$refs.menu2.save(user.finalDate)"
+                <v-btn color="deep-purple lighten-2" @click="menu2 = false">Cancelar</v-btn>
+                <v-btn color="deep-purple lighten-2" @click="$refs.menu2.save(user.finalDate)"
                   >OK</v-btn
                 >
               </v-date-picker>
             </v-menu>
           </v-col>
-        </v-row>
 
-        <v-row>
           <v-col cols="12" md="6">
             <v-select
               v-model="user.campus"
@@ -134,30 +95,32 @@
               item-text="name"
               item-value="id"
               hide-details
-              prepend-icon="touch_app"
+              prepend-icon="business"
               :rules="campusRules"
               single-line
               required
             ></v-select>
           </v-col>
+        </v-row>
 
+        <v-row>
           <v-col cols="12" md="6">
             <v-switch
               v-model="user.active"
-              label="Activo"
-              color="success"
+              label="¿Está activo?"
+              color="deep-purple darken-2"
               :value="user.active"
-              prepend-icon="check_circle"
+              prepend-icon="verified_user"
               hide-details
               required
             ></v-switch>
           </v-col>
         </v-row>
+
         <v-row>
           <v-col>
-            <v-btn :disabled="!isValid" class="primary" @click="addToUsers"
-              >Registrar</v-btn
-            >
+            <v-btn :disabled="!isValid" class="deep-purple lighten-2" @click="addToUsers"
+              >Registrar</v-btn>
           </v-col>
         </v-row>
       </v-container>

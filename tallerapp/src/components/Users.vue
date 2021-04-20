@@ -1,12 +1,12 @@
 <template>
-  <v-card width="1300" shaped elevation="17" class="mx-auto mt-9">
+  <v-card width="1300"  elevation="17" class="mx-auto mt-9">
     <v-card-title>
       <v-select
         v-model="filter"
         :items="items"
         attach
         chips
-        label="Buscar: "
+        label="Filtrar por: "
       >
         <template v-slot:selection="data">
           <v-chip
@@ -37,10 +37,9 @@
             <th class="text-center">Nombre</th>
             <th class="text-center">Apellido</th>
             <th class="text-center">Correo</th>
-            <th class="text-center">Initial Date</th>
             <th class="text-center">Válido hasta</th>
             <th class="text-center">Sede</th>
-            <th class="text-center">Activo</th>
+            <th class="text-center">¿Está activo?</th>
             <th class="text-center">Actions</th>
           </tr>
         </thead>
@@ -49,13 +48,12 @@
             <td>{{ item.name }}</td>
             <td>{{ item.lastname }}</td>
             <td>{{ item.email }}</td>
-            <td>{{ item.initDate }}</td>
             <td>{{ item.finalDate }}</td>
             <td>
-              {{ dependencies.find((dep) => dep.id === item.dependency).name }}
+              {{ campuses.find((dep) => dep.id === item.campus).name }}
             </td>
             <td>
-              <v-icon :color="item.active ? 'green darken-2' : 'red'">{{
+              <v-icon :color="item.active ? 'deep-purple darken-2' : 'red'">{{
                 item.active ? "how_to_reg" : "unpublished"
               }}</v-icon>
             </td>
@@ -66,33 +64,33 @@
             </td>
           </tr>
         </tbody>
-        <!-- Dialog to show user details-->
+        <!-- Dialogo detalles del usuario-->
         <v-dialog v-model="dialogDetails" max-width="500px">
           <v-card>
             <v-card-title class="headline"
-              >Details of {{ itemView.name }}</v-card-title
+              >Detalles del usuario {{ itemView.name }}</v-card-title
             >
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="viewItemConfirm"
+              <v-btn color="deep-purple lighten-2" text @click="viewItemConfirm"
                 >OK</v-btn
               >
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <!-- Dialog to show warning -->
+        <!-- Dialogo advertencia -->
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
             <v-card-title class="headline"
-              >Are you sure you want to delete this item?</v-card-title
+              >¿Seguro que quiere eliminar este item?</v-card-title
             >
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="closeDelete"
-                >Cancel</v-btn
+              <v-btn color="deep-purple lighten-2" text @click="closeDelete"
+                >Cancelar</v-btn
               >
-              <v-btn color="blue darken-1" text @click="deleteUsers(itemDelete)"
+              <v-btn color="deep-purple lighten-2" text @click="deleteUsers(itemDelete)"
                 >OK</v-btn
               >
               <v-spacer></v-spacer>
@@ -100,11 +98,11 @@
           </v-card>
         </v-dialog>
 
-        <!-- Dialog to edit a user -->
+        <!-- Dialogo para editar un usuario-->
         <v-dialog v-model="dialogEdit" max-width="500px">
           <v-card shaped elevation="17">
             <v-card-title class="headline justify-center"
-              >Edit an user</v-card-title
+              >Editar usuarios</v-card-title
             >
             <v-form>
               <v-container>
@@ -115,7 +113,7 @@
                       required
                       label="Nombre"
                       :rules="nameRules"
-                      prepend-icon="perm_identity"
+                      prepend-icon="badge"
                     />
                   </v-col>
                   <v-col cols="12" md="6">
@@ -124,7 +122,7 @@
                       required
                       :rules="lastNameRules"
                       label="Apellido"
-                      prepend-icon="person_outline"
+                      prepend-icon="badge"
                     />
                   </v-col>
                 </v-row>
@@ -135,7 +133,7 @@
                       required
                       :rules="emailRules"
                       label="Correo"
-                      prepend-icon="account_circle"
+                      prepend-icon="alternate_email"
                     />
                   </v-col>
                   <v-col cols="12" md="6">
@@ -144,50 +142,12 @@
                       required
                       :rules="passwordRules"
                       label="Contraseña"
-                      prepend-icon="vpn_key"
+                      prepend-icon="lock"
                     />
                   </v-col>
                 </v-row>
                 <v-row>
-                  <v-col cols="12" md="6">
-                    <v-menu
-                      ref="menu1"
-                      v-model="menu1"
-                      :close-on-content-click="false"
-                      :nudge-right="40"
-                      :return-value.sync="itemEdit.initDate"
-                      transition="scale-transition"
-                      offset-y
-                      min-width="290px"
-                    >
-                      <template v-slot:activator="{ on }">
-                        <v-text-field
-                          :rules="dateRules"
-                          v-model="itemEdit.initDate"
-                          label="Initial Date"
-                          prepend-icon="event"
-                          readonly
-                          v-on="on"
-                        ></v-text-field>
-                      </template>
-                      <v-date-picker
-                        :rules="dateRules"
-                        v-model="itemEdit.initDate"
-                        no-title
-                        scrollable
-                      >
-                        <v-spacer></v-spacer>
-                        <v-btn color="primary" @click="menu1 = false"
-                          >Cancel</v-btn
-                        >
-                        <v-btn
-                          color="primary"
-                          @click="$refs.menu1.save(itemEdit.initDate)"
-                          >OK</v-btn
-                        >
-                      </v-date-picker>
-                    </v-menu>
-                  </v-col>
+                  
 
                   <v-col cols="12" md="6">
                     <v-menu
@@ -205,7 +165,7 @@
                           :rules="dateRules"
                           v-model="itemEdit.finalDate"
                           label="Válido hasta"
-                          prepend-icon="event"
+                          prepend-icon="event_available"
                           readonly
                           v-on="on"
                         ></v-text-field>
@@ -217,11 +177,11 @@
                         scrollable
                       >
                         <v-spacer></v-spacer>
-                        <v-btn color="primary" @click="menu2 = false"
-                          >Cancel</v-btn
+                        <v-btn color="" @click="menu2 = false"
+                          >Cancelar</v-btn
                         >
                         <v-btn
-                          color="primary"
+                          color="deep-purple lighten-2"
                           @click="$refs.menu2.save(itemEdit.finalDate)"
                           >OK</v-btn
                         >
@@ -233,15 +193,15 @@
                 <v-row>
                   <v-col cols="12" md="6">
                     <v-select
-                      v-model="itemEdit.dependency"
+                      v-model="itemEdit.campus"
                       menu-props="auto"
                       label="Sede"
-                      :items="dependencies"
+                      :items="campuses"
                       item-text="name"
                       item-value="id"
                       hide-details
-                      prepend-icon="touch_app"
-                      :rules="dependencyRules"
+                      prepend-icon="business"
+                      :rules="campusRules"
                       single-line
                     ></v-select>
                   </v-col>
@@ -249,10 +209,10 @@
                   <v-col cols="12" md="6">
                     <v-switch
                       v-model="itemEdit.active"
-                      label="Activo"
-                      color="success"
+                      label="¿Está activo?"
+                      color="deep-purple darken-2"
                       :value="itemEdit.active"
-                      prepend-icon="check_circle"
+                      prepend-icon="verified_user"
                       hide-details
                     ></v-switch>
                   </v-col>
@@ -261,27 +221,27 @@
             </v-form>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" @click="editUsers(itemEdit)" text
-                >Update</v-btn
+              <v-btn color="deep-purple lighten-2" @click="editUsers(itemEdit)" text
+                >Actualizar</v-btn
               >
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <!-- Dialog to show success change! -->
+        <!-- Dialogo de operación exitosa -->
         <v-dialog v-model="dialogSuccess" max-width="500px">
           <v-card>
             <v-card-title class="headline">Operación concluida con éxito</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="dialogSuccess = false"
+              <v-btn color="deep-purple lighten-2" text @click="dialogSuccess = false"
                 >OK</v-btn
               >
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <!-- Dialog to show error on search -->
+        <!-- Dialogo error en búsqueda -->
         <v-dialog v-model="dialogError" max-width="500px">
           <v-card>
             <v-card-title class="headline justify-center"
@@ -289,14 +249,14 @@
             >
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="dialogError = false"
+              <v-btn color="deep-purple lighten-2" text @click="dialogError = false"
                 >OK</v-btn
               >
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <!-- Dialog to show results from search! -->
+        <!-- Dialogo con resultados de la búsqueda -->
         <v-dialog v-model="dialogSearch" max-width="1200px">
           <v-card>
             <v-card-title class="headline justify-center"
@@ -309,10 +269,9 @@
                   <th class="text-center">Nombre</th>
                   <th class="text-center">Apellido</th>
                   <th class="text-center">Correo</th>
-                  <th class="text-center">Initial Date</th>
                   <th class="text-center">Válido hasta</th>
                   <th class="text-center">Sede</th>
-                  <th class="text-center">Activo</th>
+                  <th class="text-center">¿Está activo?</th>
                 </tr>
               </thead>
               <tbody>
@@ -324,12 +283,12 @@
                   <td>{{ item.finalDate }}</td>
                   <td>
                     {{
-                      dependencies.find((dep) => dep.id === item.dependency)
+                      campuses.find((dep) => dep.id === item.campus)
                         .name
                     }}
                   </td>
                   <td>
-                    <v-icon :color="item.active ? 'green darken-2' : 'red'">{{
+                    <v-icon :color="item.active ? 'deep-purple darken-2' : 'red'">{{
                       item.active ? "how_to_reg" : "unpublished"
                     }}</v-icon>
                   </td>
@@ -339,7 +298,7 @@
 
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="dialogSearch = false"
+              <v-btn color="deep-purple lighten-2" text @click="dialogSearch = false"
                 >OK</v-btn
               >
               <v-spacer></v-spacer>
@@ -350,9 +309,9 @@
     </v-simple-table>
     <!-- Loader -->
     <v-dialog v-model="dialogLoader" hide-overlay persistent width="300">
-      <v-card color="primary" dark>
+      <v-card color="deep-purple lighten-2" dark>
         <v-card-text>
-          Please stand by. Looking in the database.
+          Buscando en la Base de Datos...
           <v-progress-linear
             indeterminate
             color="white"
@@ -361,15 +320,15 @@
         </v-card-text>
       </v-card>
     </v-dialog>
-    <!-- Dialog to show not founds results -->
+    <!-- Dialogo no resultados encontrados -->
     <v-dialog v-model="dialogEmptyResults" max-width="500px">
       <v-card>
         <v-card-title class="headline justify-center"
-          >No results found.</v-card-title
+          >No se han encontrado resultados en la Base de Datos.</v-card-title
         >
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="dialogEmptyResults = false"
+          <v-btn color="deep-purple lighten-2" text @click="dialogEmptyResults = false"
             >OK</v-btn
           >
           <v-spacer></v-spacer>
@@ -384,7 +343,7 @@
 export default {
   data() {
     return {
-      items: ["name", "dependency"],
+      items: ["name", "campus"],
       itemView: Object,
       filter: "",
       search: "",
@@ -422,8 +381,8 @@ export default {
           password.length >= 8 || "Password must be at least 8 characters",
       ],
       dateRules: [(date) => !!date || "Date is required"],
-      dependencyRules: [
-        (dependency) => !!dependency || "Dependency is required",
+      campusRules: [
+        (campus) => !!campus || "Campus is required",
       ],
     };
   },
@@ -493,8 +452,8 @@ export default {
         } else {
           this.dialogSearch = true;
         }
-      } else if (this.filter === "dependency") {
-        this.$store.state.dependencies.forEach((up) => {
+      } else if (this.filter === "campus") {
+        this.$store.state.campuses.forEach((up) => {
           if (up.name === this.search) {
             this.results = up.users;
           }
@@ -514,8 +473,8 @@ export default {
     users() {
       return this.$store.state.users;
     },
-    dependencies() {
-      return this.$store.state.dependencies;
+    campuses() {
+      return this.$store.state.campuses;
     },
   },
 };

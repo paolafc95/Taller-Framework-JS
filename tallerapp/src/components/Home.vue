@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-main wrap>
-      <v-card width="500" shaped elevation="17" flat class="mx-auto mt-9">
+      <v-card width="700" elevation="17" flat class="mx-auto mt-9">
         <v-card-title class="justify-center">Unirse ahora</v-card-title>
         <!-- <v-card-subtitle class="justify-center">welcome</v-card-subtitle> -->
         <v-form v-model="isValid">
@@ -11,7 +11,7 @@
               v-model="itemUser.email"
               label="Correo"
               :rules="emailRules"
-              prepend-icon="account_circle"
+              prepend-icon="alternate_email"
             />
             <v-text-field
               label="Contraseña"
@@ -26,7 +26,7 @@
           </v-card-text>
           <v-divider></v-divider>
           <v-card-actions class="justify-center">
-            <v-btn color="primary" :disabled="!isValid" @click="verifyLogin()"
+            <v-btn color="deep-purple lighten-2" :disabled="!isValid" @click="verifyLogin()"
               ><v-icon left>login</v-icon>Login</v-btn
             >
           </v-card-actions>
@@ -37,7 +37,7 @@
       </v-card>
       <!-- Loader -->
       <v-dialog v-model="dialogLoader" hide-overlay persistent width="300">
-        <v-card color="primary" dark>
+        <v-card color="deep-purple lighten-2" dark>
           <v-card-text>
             Buscando en la Base de Datos...
             <v-progress-linear
@@ -49,7 +49,7 @@
         </v-card>
       </v-dialog>
 
-      <!-- Show if exist user in the BD FireBase -->
+      <!-- Revisar si el usuario se encuentra en la BD -->
       <v-dialog
         v-if="!dialogLoader"
         v-model="dialogLogin"
@@ -58,7 +58,7 @@
       >
         <v-card>
           <v-card-title v-if="isUser" class="headline"
-            >¿Se ha encontrado en la Base de Datos!
+            >¡Se ha encontrado en la Base de Datos!
           </v-card-title>
           <v-card-title v-else class="headline"
             >Correo o contraseña inválido.
@@ -66,7 +66,7 @@
 
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="refresh()">OK</v-btn>
+            <v-btn color="deep-purple lighten-1" text @click="refresh()">OK</v-btn>
             <v-spacer></v-spacer>
           </v-card-actions>
         </v-card>
@@ -147,14 +147,14 @@ export default {
 
 <style>
 .home-bg {
-  /* background-image: url("https://cgfrog.com/wp-content/uploads/2019/02/Download-free-gradients-for-photoshop-background-ui-electric-violet.jpg");
+  background-image: url("https://cgfrog.com/wp-content/uploads/2019/02/Download-free-gradients-for-photoshop-background-ui-electric-violet.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
-   */
-background: #FEAC5E;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to top, #4BC0C8, #C779D0, #FEAC5E);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to top, #4BC0C8, #C779D0, #FEAC5E); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+/* background: #FEAC5E;  fallback for old browsers */
+/* background: -webkit-linear-gradient(to top, #4BC0C8, #C779D0, #FEAC5E);  Chrome 10-25, Safari 5.1-6 */
+/* background: linear-gradient(to top, #4BC0C8, #C779D0, #FEAC5E); W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 </style>
