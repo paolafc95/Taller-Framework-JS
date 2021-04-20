@@ -1,6 +1,6 @@
 <template>
   <v-card width="700"  elevation="17" class="mx-auto mt-9">
-    <v-card-title class="justify-center">Sign Up</v-card-title>
+    <v-card-title class="justify-center">Registrar Usuario</v-card-title>
     <v-card-subtitle class="justify-center"
       >Registrar usuario</v-card-subtitle
     >

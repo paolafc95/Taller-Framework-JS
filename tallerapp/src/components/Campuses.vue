@@ -1,5 +1,5 @@
 <template>
-  <v-card width="1000" elevation="15" class="mx-auto mt-12">
+  <v-card width="1300" elevation="15" class="mx-auto mt-12">
     <v-simple-table>
       <template v-slot:default>
         <thead>

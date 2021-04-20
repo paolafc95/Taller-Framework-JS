@@ -13,25 +13,6 @@ export default new Vuex.Store({
     },
 
     mutations: {
-        addToCampuses(state, payload){
-            try{
-                payload.id=((state.campuses.length) - 1) + 1;
-                db.collection('campuses').add(payload);
-
-                db.collection("campuses").get().then(up => {
-                    up.forEach(doc => {
-                        if(doc.data().id === payload.id){
-                            payload.id = doc.id;
-                            db.collection("campuses").doc(doc.id).update(payload);
-                            state.campuses.push(payload);
-                        }
-                    });
-                });
-            }catch(error){
-                console.log(error);
-            }
-        },
-
         addToUsers(state, payload){
             try{
                 payload.id = ((state.users.length) - 1) + 1;
@@ -63,6 +44,25 @@ export default new Vuex.Store({
                     })
                 });
 
+            }catch(error){
+                console.log(error);
+            }
+        },
+
+        addToCampuses(state, payload){
+            try{
+                payload.id=((state.campuses.length) - 1) + 1;
+                db.collection('campuses').add(payload);
+
+                db.collection("campuses").get().then(up => {
+                    up.forEach(doc => {
+                        if(doc.data().id === payload.id){
+                            payload.id = doc.id;
+                            db.collection("campuses").doc(doc.id).update(payload);
+                            state.campuses.push(payload);
+                        }
+                    });
+                });
             }catch(error){
                 console.log(error);
             }

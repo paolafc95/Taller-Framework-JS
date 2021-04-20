@@ -1,5 +1,5 @@
 <template>
-  <v-card width="1300"  elevation="17" class="mx-auto mt-9">
+  <v-card width="1300"  elevation="15" class="mx-auto mt-12">
     <v-card-title>
       <v-select
         v-model="filter"
@@ -30,7 +30,7 @@
       </v-text-field>
       <v-icon @click="searchUsers()">search</v-icon>
     </v-card-title>
-
+   
     <v-simple-table height="350px">
       <template v-slot:default>
         <thead>
@@ -54,7 +54,7 @@
               {{ campuses.find((dep) => dep.id === item.campus).name }}
             </td>
             <td>
-              <v-icon :color="item.active ? 'deep-purple darken-2' : 'red'">{{
+              <v-icon :color="item.active ? 'green darken-2' : 'red'">{{
                 item.active ? "how_to_reg" : "unpublished"
               }}</v-icon>
             </td>
@@ -65,7 +65,7 @@
             </td>
           </tr>
         </tbody>
-        <!-- Dialogo detalles del usuario-->
+        <!-- Detalle del usuario -->
         <v-dialog v-model="dialogDetails" max-width="500px">
           <v-card>
             <v-card-title class="headline"
@@ -80,7 +80,7 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <!-- Dialogo advertencia -->
+        <!-- Dialog to show warning -->
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
             <v-card-title class="headline"
@@ -88,10 +88,10 @@
             >
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="deep-purple lighten-2" text @click="closeDelete"
+              <v-btn color="blue darken-1" text @click="closeDelete"
                 >Cancelar</v-btn
               >
-              <v-btn color="deep-purple lighten-2" text @click="deleteUsers(itemDelete)"
+              <v-btn color="blue darken-1" text @click="deleteUsers(itemDelete)"
                 >OK</v-btn
               >
               <v-spacer></v-spacer>
@@ -99,11 +99,11 @@
           </v-card>
         </v-dialog>
 
-        <!-- Dialogo para editar un usuario-->
+ 
         <v-dialog v-model="dialogEdit" max-width="500px">
           <v-card shaped elevation="17">
             <v-card-title class="headline justify-center"
-              >Editar usuarios</v-card-title
+              >Editar un</v-card-title
             >
             <v-form>
               <v-container>
@@ -148,12 +148,10 @@
                   </v-col>
                 </v-row>
                 <v-row>
-                  
-
                   <v-col cols="12" md="6">
                     <v-menu
-                      ref="menu2"
-                      v-model="menu2"
+                      ref="menu1"
+                      v-model="menu1"
                       :close-on-content-click="false"
                       :nudge-right="40"
                       :return-value.sync="itemEdit.finalDate"
@@ -164,9 +162,9 @@
                       <template v-slot:activator="{ on }">
                         <v-text-field
                           :rules="dateRules"
-                          v-model="itemEdit.finalDate"
+                          v-model="itemEdit.initDate"
                           label="Válido hasta"
-                          prepend-icon="event_available"
+                          prepend-icon="event"
                           readonly
                           v-on="on"
                         ></v-text-field>
@@ -178,12 +176,12 @@
                         scrollable
                       >
                         <v-spacer></v-spacer>
-                        <v-btn color="" @click="menu2 = false"
-                          >Cancelar</v-btn
+                        <v-btn color="primary" @click="menu1 = false"
+                          >Cancel</v-btn
                         >
                         <v-btn
-                          color="deep-purple lighten-2"
-                          @click="$refs.menu2.save(itemEdit.finalDate)"
+                          color="primary"
+                          @click="$refs.menu1.save(itemEdit.initDate)"
                           >OK</v-btn
                         >
                       </v-date-picker>
@@ -222,14 +220,14 @@
             </v-form>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="deep-purple lighten-2" @click="editUsers(itemEdit)" text
+             <v-btn color="deep-purple lighten-2" @click="editUsers(itemEdit)" text
                 >Actualizar</v-btn
               >
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <!-- Dialogo de operación exitosa -->
+
         <v-dialog v-model="dialogSuccess" max-width="500px">
           <v-card>
             <v-card-title class="headline">Operación concluida con éxito</v-card-title>
@@ -242,7 +240,7 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <!-- Dialogo error en búsqueda -->
+        <!-- Dialog to show error on search -->
         <v-dialog v-model="dialogError" max-width="500px">
           <v-card>
             <v-card-title class="headline justify-center"
@@ -257,7 +255,7 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <!-- Dialogo con resultados de la búsqueda -->
+        <!-- Resultados de búsqueda -->
         <v-dialog v-model="dialogSearch" max-width="1200px">
           <v-card>
             <v-card-title class="headline justify-center"
@@ -309,19 +307,6 @@
       </template>
     </v-simple-table>
     <!-- Loader -->
-    <v-dialog v-model="dialogLoader" hide-overlay persistent width="300">
-      <v-card color="deep-purple lighten-2" dark>
-        <v-card-text>
-          Buscando en la Base de Datos...
-          <v-progress-linear
-            indeterminate
-            color="white"
-            class="mb-0"
-          ></v-progress-linear>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
-    <!-- Dialogo no resultados encontrados -->
     <v-dialog v-model="dialogEmptyResults" max-width="500px">
       <v-card>
         <v-card-title class="headline justify-center"
@@ -336,6 +321,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    
   </v-card>
 </template>
 
@@ -382,9 +368,9 @@ export default {
           password.length >= 8 || "Password must be at least 8 characters",
       ],
       dateRules: [(date) => !!date || "Date is required"],
-      campusRules: [
-        (campus) => !!campus || "Campus is required",
-      ],
+      //campusRules: [
+        //(campus) => !!campus || "campus is required",
+      //],
     };
   },
   watch: {
