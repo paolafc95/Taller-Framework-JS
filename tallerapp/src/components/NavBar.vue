@@ -1,8 +1,9 @@
 
 <template>
   <div>
-    <v-app-bar color="deep-purple lighten-2" app dark>
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+    <v-app-bar color="deep-purple lighten-2" app dark src="../assets/img-fondo.jpg">
+    
+      <v-app-bar-nav-icon to="/" plain ></v-app-bar-nav-icon>
       <v-toolbar-title>
         Dennys & Paola
       </v-toolbar-title>

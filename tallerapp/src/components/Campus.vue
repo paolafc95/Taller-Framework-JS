@@ -1,9 +1,9 @@
 <template>
   <v-card max-width="800" elevation="15" class="mx-auto mt-12">
+    <v-spacer></v-spacer>
     <v-card-title class="justify-center">Registrar nueva sede</v-card-title>
-    <v-card-subtitle class="justify-center"
-      >Registre una nueva sede</v-card-subtitle
-    >
+    <v-spacer></v-spacer>
+    <v-card-subtitle class="justify-center">Registre una nueva sede</v-card-subtitle>
     <v-form v-model="isValid">
       <v-container>
         <v-row>
@@ -115,8 +115,7 @@
             color="deep-purple darken-2"
             text
             @click="dialogCampusAdded = false"
-            >OK</v-btn
-          >
+            >OK</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
