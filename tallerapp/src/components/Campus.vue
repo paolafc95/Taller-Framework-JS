@@ -1,5 +1,5 @@
 <template>
-  <v-card width="800" shaped elevation="10" class="mx-auto mt-9">
+  <v-card max-width="800" elevation="15" class="mx-auto mt-12">
     <v-card-title class="justify-center">Registrar nueva sede</v-card-title>
     <v-card-subtitle class="justify-center"
       >Registre una nueva sede</v-card-subtitle
@@ -24,7 +24,7 @@
               class="ma-2 white--text"
               color="deep-purple darken-2"
               :value="campus.active"
-              prepend-icon="check_circle"
+              prepend-icon="verified_user"
               hide-details
               required
             ></v-switch>
@@ -170,7 +170,7 @@ export default {
           (location_zipcode) => location_zipcode >= 3 || "El zipcode debe tener más de 3 carácteres.",
       ],
       contact_phone_rules: [
-        (contact_phone) => contact_phone == 10 || "El celular de contacto debe tener 10 números."
+        (contact_phone) => contact_phone.length == 10 || "El celular de contacto debe tener 10 números."
       ]
 
     };

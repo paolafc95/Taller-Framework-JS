@@ -1,6 +1,6 @@
   
 <template>
- <v-app id="app">
+ <v-app id="tallerapp">
   <main>
     <div class="app-container">
     <header class="app-header">
@@ -29,3 +29,10 @@ export default {
   }),
 };
 </script>
+
+<style>
+  #tallerapp {
+    margin-top: 60px;
+  }
+  
+</style>
