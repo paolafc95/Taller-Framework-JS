@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card width="1300" shaped elevation="17" class="mx-auto mt-9">
     <v-simple-table>
       <template v-slot:default>
         <thead>
@@ -31,7 +31,9 @@
             <td>
               <v-icon small @click="viewCampus(itemCampus)">visibility</v-icon>
               <v-icon small @click="viewEditCampus(itemCampus)">edit</v-icon>
-              <v-icon small @click="viewDeleteCampus(itemCampus)">delete</v-icon>
+              <v-icon small @click="viewDeleteCampus(itemCampus)"
+                >delete</v-icon
+              >
             </td>
           </tr>
         </tbody>
@@ -50,7 +52,7 @@
                     <v-text-field
                       required
                       label="Nombre"
-                      :value= itemCampusView.name
+                      :value="itemCampusView.name"
                       disabled
                       prepend-icon="perm_identity"
                     />
@@ -71,7 +73,7 @@
                     <v-text-field
                       required
                       label="Ciudad Sede"
-                      :value= itemCampusView.location_city
+                      :value="itemCampusView.location_city"
                       disabled
                       prepend-icon="location_on"
                     />
@@ -80,7 +82,7 @@
                     <v-text-field
                       required
                       label="Dirección Sede"
-                      :value= itemCampusView.location_address
+                      :value="itemCampusView.location_address"
                       disabled
                       prepend-icon="location_on"
                     />
@@ -89,7 +91,7 @@
                     <v-text-field
                       required
                       label="Zipcode Sede"
-                      :value= itemCampusView.location_zipcode
+                      :value="itemCampusView.location_zipcode"
                       disabled
                       prepend-icon="location_on"
                     />
@@ -101,7 +103,7 @@
                     <v-text-field
                       required
                       label="Nombre Contacto"
-                      :value= itemCampusView.contact_name
+                      :value="itemCampusView.contact_name"
                       disabled
                       prepend-icon="perm_identity"
                     />
@@ -110,7 +112,7 @@
                     <v-text-field
                       required
                       label="Email Contacto"
-                      :value= itemCampusView.contact_email
+                      :value="itemCampusView.contact_email"
                       disabled
                       prepend-icon="perm_identity"
                     />
@@ -119,7 +121,7 @@
                     <v-text-field
                       required
                       label="Celular Contacto"
-                      :value= itemCampusView.contact_phone
+                      :value="itemCampusView.contact_phone"
                       disabled
                       prepend-icon="perm_identity"
                     />
@@ -130,7 +132,8 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn
-                color="deep-purple lighten-2"
+                class="ma-2 white--text"
+                color="deep-purple darken-2"
                 @click="dialogCampusesView = false"
                 text
                 >OK</v-btn
@@ -153,8 +156,8 @@
                 <v-row>
                   <v-col cols="12" md="6">
                     <v-text-field
-                      v-model= itemCampusEdit.name
-                      :value= itemCampusEdit.name
+                      v-model="itemCampusEdit.name"
+                      :value="itemCampusEdit.name"
                       required
                       :rules="nameRules"
                       label="Nombre"
@@ -163,10 +166,10 @@
                   </v-col>
                   <v-col cols="12" md="6">
                     <v-switch
-                      v-model= itemCampusEdit.active
+                      v-model="itemCampusEdit.active"
                       label="¿Está activo?"
                       color="success"
-                      :value= itemCampusEdit.active
+                      :value="itemCampusEdit.active"
                       prepend-icon="check_circle"
                       hide-details
                     ></v-switch>
@@ -180,8 +183,8 @@
                 <v-row>
                   <v-col cols="12" md="6">
                     <v-text-field
-                      v-model= itemCampusEdit.location_city
-                      :value= itemCampusEdit.location_city
+                      v-model="itemCampusEdit.location_city"
+                      :value="itemCampusEdit.location_city"
                       required
                       :rules="locationRules"
                       label="Ciudad Sede"
@@ -190,8 +193,8 @@
                   </v-col>
                   <v-col cols="12" md="6">
                     <v-text-field
-                      v-model= itemCampusEdit.location_address
-                      :value= itemCampusEdit.location_address
+                      v-model="itemCampusEdit.location_address"
+                      :value="itemCampusEdit.location_address"
                       required
                       :rules="locationRules"
                       label="Dirección Sede"
@@ -201,8 +204,8 @@
 
                   <v-col cols="12" md="6">
                     <v-text-field
-                      v-model= itemCampusEdit.location_zipcode
-                      :value= itemCampusEdit.location_zipcode
+                      v-model="itemCampusEdit.location_zipcode"
+                      :value="itemCampusEdit.location_zipcode"
                       required
                       :rules="locationRules"
                       label="ZipCode Sede"
@@ -214,8 +217,8 @@
                 <v-row>
                   <v-col cols="12" md="6">
                     <v-text-field
-                      v-model= itemCampusEdit.contact_name
-                      :value= itemCampusEdit.contact_name
+                      v-model="itemCampusEdit.contact_name"
+                      :value="itemCampusEdit.contact_name"
                       required
                       :rules="locationRules"
                       label="Nombre Contacto"
@@ -224,8 +227,8 @@
                   </v-col>
                   <v-col cols="12" md="6">
                     <v-text-field
-                      v-model= itemCampusEdit.contact_email
-                      :value= itemCampusEdit.contact_email
+                      v-model="itemCampusEdit.contact_email"
+                      :value="itemCampusEdit.contact_email"
                       required
                       :rules="locationRules"
                       label="Email Contacto"
@@ -234,8 +237,8 @@
                   </v-col>
                   <v-col cols="12" md="6">
                     <v-text-field
-                      v-model= itemCampusEdit.contact_phone
-                      :value= itemCampusEdit.contact_phone
+                      v-model="itemCampusEdit.contact_phone"
+                      :value="itemCampusEdit.contact_phone"
                       required
                       :rules="locationRules"
                       label="Celular Contacto"
@@ -248,7 +251,8 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn
-                color="deep-purple lighten-2"
+                class="ma-2 white--text"
+                color="deep-purple darken-2"
                 @click="editCampuses(itemCampusEdit)"
                 text
                 >Editar</v-btn
@@ -267,7 +271,10 @@
             <v-card-title class="headline">Operación exitosa</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="dialogSuccess = false"
+              <v-btn 
+                class="ma-2 white--text"
+                color="deep-purple darken-2"
+                text @click="dialogSuccess = false"
                 >OK</v-btn
               >
               <v-spacer></v-spacer>
@@ -282,7 +289,11 @@
             <v-card-title class="headline"
               >Usuarios
               <v-spacer></v-spacer>
-              <v-btn color="primary" @click="dialogUsers = false">OK</v-btn>
+              <v-btn
+                class="ma-2 white--text"
+                color="deep-purple darken-2"
+                @click="dialogUsers = false">
+                OK</v-btn>
             </v-card-title>
             <v-simple-table height="300px">
               <thead>
@@ -326,13 +337,15 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn
-                color="blue darken-1"
+                class="ma-2 white--text"
+                color="deep-purple darken-2"
                 text
                 @click="dialogCampusesDelete = false"
                 >Cancel</v-btn
               >
               <v-btn
-                color="blue darken-1"
+                class="ma-2 white--text"
+                color="deep-purple darken-2"
                 text
                 @click="deleteCampuses(itemCampusDelete)"
                 >OK</v-btn
@@ -351,7 +364,8 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn
-                color="blue darken-1"
+                class="ma-2 white--text"
+                color="deep-purple darken-2"
                 text
                 @click="dialogCampusesError = false"
                 >OK</v-btn
@@ -383,41 +397,40 @@ export default {
   },
 
   methods: {
-        viewCampus(itemCampus) {
-         this.itemCampusView = itemCampus;
-         this.dialogCampusesView = true;
-        },
-        viewEditCampus(itemCampus) {
-            this.dialogCampusesEdit = true;
-            this.itemCampusEdit = Object.assing({}, itemCampus);
-        },
-        viewDeleteCampus(itemCampus) {
-            this.dialogCampusesDelete = true;
-            this.itemCampusDelete = Object.assign({}, itemCampus);
-        },
-        editCampuses(itemCampus) {
-            this.dialogCampusesEdit = false;
-            this.$store.dispatch("editCampuses", itemCampus);
-            this.dialogSuccess = true;
-        },
-        deleteCampuses(itemCampus){
-            if(itemCampus.users.length <= 0){
-                this.dialogCampusesDelete = false;
-                this.$store.dispatch("deleteCampuses", itemCampus);
-                this.dialogSuccess = true;
-            } else {
-                this.dialogCampusesDelete = false;
-                this.dialogCampusesError = true;
-            }
-        },
+    viewCampus(itemCampus) {
+      this.itemCampusView = itemCampus;
+      this.dialogCampusesView = true;
     },
-    computed: {
-        dependencies() {
-            return this.$store.state.dependencies;
-        },
+    viewEditCampus(itemCampus) {
+      this.dialogCampusesEdit = true;
+      this.itemCampusEdit = Object.assing({}, itemCampus);
     },
+    viewDeleteCampus(itemCampus) {
+      this.dialogCampusesDelete = true;
+      this.itemCampusDelete = Object.assign({}, itemCampus);
+    },
+    editCampuses(itemCampus) {
+      this.dialogCampusesEdit = false;
+      this.$store.dispatch("editCampuses", itemCampus);
+      this.dialogSuccess = true;
+    },
+    deleteCampuses(itemCampus) {
+      if (itemCampus.users.length <= 0) {
+        this.dialogCampusesDelete = false;
+        this.$store.dispatch("deleteCampuses", itemCampus);
+        this.dialogSuccess = true;
+      } else {
+        this.dialogCampusesDelete = false;
+        this.dialogCampusesError = true;
+      }
+    },
+  },
+  computed: {
+    campuses() {
+      return this.$store.state.campuses;
+    },
+  },
 };
 </script>
 
-<style>
-</style>
+<style></style>

@@ -1,5 +1,5 @@
 <template>
-  <v-card width="500" shaped elevation="17" class="mx-auto mt-9">
+  <v-card width="800" shaped elevation="17" class="mx-auto mt-9">
     <v-card-title class="justify-center">Sign Up</v-card-title>
     <v-card-subtitle class="justify-center"
       >Registre una nueva sede</v-card-subtitle
@@ -92,8 +92,9 @@
           <v-col>
             <v-btn
               :disabled="!isValid"
-              class="primary"
-              @click="addToDependencies"
+              class="ma-2 white--text"
+              color="deep-purple darken-2"
+              @click="addToCampuses"
               >Registrar</v-btn
             >
           </v-col>
@@ -101,7 +102,7 @@
       </v-container>
     </v-form>
     <!-- Show user has been added! -->
-    <v-dialog v-model="dialogDependencyAdded" max-width="500px">
+    <v-dialog v-model="dialogCampusAdded" max-width="500px">
       <v-card>
         <v-card-title class="headline">
           La sede se ha agregado de forma exitosa</v-card-title
@@ -109,9 +110,10 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
-            color="blue darken-1"
+            class="ma-2 white--text"
+            color="deep-purple darken-2"
             text
-            @click="dialogDependencyAdded = false"
+            @click="dialogCampusAdded = false"
             >OK</v-btn
           >
           <v-spacer></v-spacer>
@@ -137,7 +139,7 @@ export default {
         contact_phone: 0,
         active: "",
       },
-      dialogDependencyAdded: false,
+      dialogCampusAdded: false,
       isValid: true,
       dialog: false,
       nameRules: [
@@ -147,7 +149,26 @@ export default {
     };
   },
   methods: {
-    
+    refresh() {
+      this.campus = {
+        id: 0,
+        name: "",
+        users: [],
+        location_city: "",
+        location_address: "",
+        location_zipcode: "",
+        contact_name: "",
+        contact_email: "",
+        contact_phone: 0,
+        active: "",
+      };
+    },
+    addToCampuses() {
+      this.dialogCampusAdded = false;
+      this.$store.dispatch("addToCampuses", this.campus);
+      this.refresh();
+      this.dialogCampusAdded = true;
+    },
   },
 };
 </script>
