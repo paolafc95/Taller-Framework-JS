@@ -9,7 +9,7 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
 
-      <v-toolbar-items>
+      <v-toolbar-items id="items">
       <v-btn to="/" plain >Inicio</v-btn> 
       <!-- <v-btn to="/user" plain><router-link to="/user">Agregar Usuario</router-link> </v-btn> -->
       <v-btn to="/user" plain >Agregar Usuario</v-btn>
@@ -36,6 +36,8 @@ export default {
 }
 #items{
   font-family: 'Cabin', sans-serif;
+  font-style: bold
+  
 }
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;674&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cabin&family=Dancing+Script:wght@600;674&display=swap');
