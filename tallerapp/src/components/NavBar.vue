@@ -3,8 +3,8 @@
   <div>
     <v-app-bar color="deep-purple lighten-2" app dark src="../assets/img-fondo.jpg">
     
-      <v-app-bar-nav-icon to="/" plain ></v-app-bar-nav-icon>
-      <v-toolbar-title>
+      <v-app-bar-nav-icon to="/" plain > <v-icon>auto_awesome</v-icon> </v-app-bar-nav-icon>
+      <v-toolbar-title id="title">
         Dennys & Paola
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -29,4 +29,14 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+#title{
+  font-family: 'Dancing Script', cursive;
+  font-size: 45px
+}
+#items{
+  font-family: 'Cabin', sans-serif;
+}
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;674&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Dancing+Script:wght@600;674&display=swap');
+</style>
