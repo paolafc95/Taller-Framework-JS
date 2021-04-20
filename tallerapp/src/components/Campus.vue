@@ -1,6 +1,6 @@
 <template>
-  <v-card width="800" shaped elevation="17" class="mx-auto mt-9">
-    <v-card-title class="justify-center">Sign Up</v-card-title>
+  <v-card width="800" shaped elevation="10" class="mx-auto mt-9">
+    <v-card-title class="justify-center">Registrar nueva sede</v-card-title>
     <v-card-subtitle class="justify-center"
       >Registre una nueva sede</v-card-subtitle
     >
@@ -12,16 +12,17 @@
               v-model="campus.name"
               :value="campus.name"
               required
-              :rules="nameRules"
+              :rules="name_rules"
               label="Nombre"
-              prepend-icon="perm_identity"
+              prepend-icon="business"
             />
           </v-col>
           <v-col cols="12" md="6">
             <v-switch
               v-model="campus.active"
               label="¿Está activo?"
-              color="success"
+              class="ma-2 white--text"
+              color="deep-purple darken-2"
               :value="campus.active"
               prepend-icon="check_circle"
               hide-details
@@ -30,29 +31,29 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="12" md="6">
+          <v-col cols="12" md="4">
             <v-text-field
               v-model="campus.location_city"
               required
-              :rules="locationRules"
+              :rules="location_city_rules"
               label="Ciudad Sede"
-              prepend-icon="location_on"
+              prepend-icon="location_city"
             />
           </v-col>
-          <v-col cols="12" md="6">
+          <v-col cols="12" md="4">
             <v-text-field
               v-model="campus.location_address"
               required
-              :rules="locationRules"
+              :rules="location_address_rules"
               label="Dirección Sede"
               prepend-icon="location_on"
             />
           </v-col>
-          <v-col cols="12" md="6">
+          <v-col cols="12" md="4">
             <v-text-field
               v-model="campus.location_zipcode"
               required
-              :rules="locationRules"
+              :rules="location_zipcode_rules"
               label="Zipcode Sede"
               prepend-icon="location_on"
             />
@@ -60,31 +61,31 @@
         </v-row>
 
         <v-row>
-          <v-col cols="12" md="6">
+          <v-col cols="12" md="4">
             <v-text-field
               v-model="campus.contact_name"
               required
-              :rules="locationRules"
+              :rules="contact_name_rules"
               label="Nombre Contacto"
-              prepend-icon="perm_identity"
+              prepend-icon="person"
             />
           </v-col>
-          <v-col cols="12" md="6">
+          <v-col cols="12" md="4">
             <v-text-field
               v-model="campus.contact_email"
               required
-              :rules="locationRules"
+              :rules="contact_email_rules"
               label="Email Contacto"
-              prepend-icon="perm_identity"
+              prepend-icon="alternate_email"
             />
           </v-col>
-          <v-col cols="12" md="6">
+          <v-col cols="12" md="4">
             <v-text-field
               v-model="campus.contact_phone"
               required
-              :rules="locationRules"
+              :rules="contact_phone_rules"
               label="Celular Contacto"
-              prepend-icon="perm_identity"
+              prepend-icon="phone_iphone"
             />
           </v-col>
         </v-row>
@@ -142,10 +143,36 @@ export default {
       dialogCampusAdded: false,
       isValid: true,
       dialog: false,
-      nameRules: [
-        (name) => !!name || "Name is required",
-        (name) => name.length >= 3 || "Name must be at least 3 characters",
+      name_rules: [
+        (name) => !!name || "El nombre de la sede es requerido.",
+        (name) => name.length >= 2 || "El nombre debe tener más de dos caracteres",
       ],
+      contact_name_rules: [
+        (contact_name) => !!contact_name || "El nombre del contacto es requerido.",
+        (contact_name) =>
+          contact_name.length >= 3 ||
+          "El nombre de contacto debe tener más de 3 carácteres.",
+      ],
+      contact_email_rules: [
+        (contact_email) => !!contact_email || "El email de contacto es requerido.",
+        (contact_email) =>
+          /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(contact_email) ||
+          "El email de contacto es inválido.",
+      ],
+      location_address_rules: [
+          (location_address) => !!location_address || "La dirección de la sede es requerida.",
+      ],
+      location_city_rules: [
+          (location_city) => !!location_city || "La ciudad de ubicación de la sede es requerida.",
+      ],
+      location_zipcode_rules: [
+          (location_zipcode) => !!location_zipcode || "El zipcode es requerido.",
+          (location_zipcode) => location_zipcode >= 3 || "El zipcode debe tener más de 3 carácteres.",
+      ],
+      contact_phone_rules: [
+        (contact_phone) => contact_phone == 10 || "El celular de contacto debe tener 10 números."
+      ]
+
     };
   },
   methods: {
