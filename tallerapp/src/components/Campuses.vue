@@ -24,8 +24,8 @@
             <td>{{ itemCampus.contact_email }}</td>
             <td>{{ itemCampus.contact_phone }}</td>
             <td>
-              <v-icon :color="itemCampus.active ? 'green darken-2' : 'red'">{{
-                itemCampus.active ? "verified" : "unpublished"
+              <v-icon :color="itemCampus.active ? 'deep-purple darken-2' : 'red'">{{
+                itemCampus.active ? "verified_user" : "unpublished"
               }}</v-icon>
             </td>
             <td>
@@ -43,7 +43,7 @@
         <v-dialog v-model="dialogCampusesView" max-width="500px">
           <v-card>
             <v-card-title class="headline justify-center"
-              >Details of {{ itemCampusView.name }}</v-card-title
+              >Detalles de Sede {{ itemCampusView.name }}</v-card-title
             >
             <v-form>
               <v-container>
@@ -54,16 +54,16 @@
                       label="Nombre"
                       :value="itemCampusView.name"
                       disabled
-                      prepend-icon="perm_identity"
+                      prepend-icon="business"
                     />
                   </v-col>
 
                   <v-col cols="12" md="6">
                     <p class="text--disabled">¿Está activo?</p>
                     <v-icon
-                      :color="itemCampusView.active ? 'green darken-2' : 'red'"
+                      :color="itemCampusView.active ? 'deep-purple darken-2' : 'red'"
                       >{{
-                        itemCampusView.active ? "verified" : "unpublished"
+                        itemCampusView.active ? "verified_user" : "unpublished"
                       }}</v-icon
                     >
                   </v-col>
@@ -75,7 +75,7 @@
                       label="Ciudad Sede"
                       :value="itemCampusView.location_city"
                       disabled
-                      prepend-icon="location_on"
+                      prepend-icon="location_city"
                     />
                   </v-col>
                   <v-col cols="12" md="6">
@@ -105,7 +105,7 @@
                       label="Nombre Contacto"
                       :value="itemCampusView.contact_name"
                       disabled
-                      prepend-icon="perm_identity"
+                      prepend-icon="person"
                     />
                   </v-col>
                   <v-col cols="12" md="6">
@@ -114,7 +114,7 @@
                       label="Email Contacto"
                       :value="itemCampusView.contact_email"
                       disabled
-                      prepend-icon="perm_identity"
+                      prepend-icon="alternate_email"
                     />
                   </v-col>
                   <v-col cols="12" md="6">
@@ -123,7 +123,7 @@
                       label="Celular Contacto"
                       :value="itemCampusView.contact_phone"
                       disabled
-                      prepend-icon="perm_identity"
+                      prepend-icon="phone_iphone"
                     />
                   </v-col>
                 </v-row>
@@ -168,9 +168,9 @@
                     <v-switch
                       v-model="itemCampusEdit.active"
                       label="¿Está activo?"
-                      color="success"
+                      color="deep-purple darken-2"
                       :value="itemCampusEdit.active"
-                      prepend-icon="check_circle"
+                      prepend-icon="verified_user"
                       hide-details
                     ></v-switch>
                   </v-col>
@@ -316,7 +316,7 @@
                   <td>{{ itemUsers.finalDate }}</td>
                   <td>
                     <v-icon
-                      :color="itemUsers.active ? 'green darken-2' : 'red'"
+                      :color="itemUsers.active ? 'deep-purple darken-2' : 'red'"
                       >{{ item.active ? "how_to_reg" : "unpublished" }}</v-icon
                     >
                   </td>
@@ -397,18 +397,6 @@ export default {
   },
 
   methods: {
-    viewCampus(itemCampus) {
-      this.itemCampusView = itemCampus;
-      this.dialogCampusesView = true;
-    },
-    viewEditCampus(itemCampus) {
-      this.dialogCampusesEdit = true;
-      this.itemCampusEdit = Object.assing({}, itemCampus);
-    },
-    viewDeleteCampus(itemCampus) {
-      this.dialogCampusesDelete = true;
-      this.itemCampusDelete = Object.assign({}, itemCampus);
-    },
     editCampuses(itemCampus) {
       this.dialogCampusesEdit = false;
       this.$store.dispatch("editCampuses", itemCampus);
@@ -423,6 +411,18 @@ export default {
         this.dialogCampusesDelete = false;
         this.dialogCampusesError = true;
       }
+    },
+    viewCampus(itemCampus) {
+      this.itemCampusView = itemCampus;
+      this.dialogCampusesView = true;
+    },
+    viewEditCampus(itemCampus) {
+      this.dialogCampusesEdit = true;
+      this.itemCampusEdit = Object.assing({}, itemCampus);
+    },
+    viewDeleteCampus(itemCampus) {
+      this.dialogCampusesDelete = true;
+      this.itemCampusDelete = Object.assign({}, itemCampus);
     },
   },
   computed: {

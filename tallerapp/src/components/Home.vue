@@ -27,7 +27,7 @@
           <v-divider></v-divider>
           <v-card-actions class="justify-center">
             <v-btn color="deep-purple lighten-2" :disabled="!isValid" @click="verifyLogin()"
-              ><v-icon left>login</v-icon>Login</v-btn
+              >Ingresar</v-btn
             >
           </v-card-actions>
           <v-card-actions class="justify-center">

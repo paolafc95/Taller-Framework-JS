@@ -26,8 +26,8 @@ export default {
   },
 
   created(){
-    db.collection("campuses").get().then((dep) => {
-      dep.forEach(doc => {
+    db.collection("campuses").get().then((camp) => {
+      camp.forEach(doc => {
         this.$store.state.campuses.push(doc.data());
       })
     });

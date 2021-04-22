@@ -32,7 +32,7 @@
     </v-card-title>
    
     <v-simple-table height="350px">
-      <template v-slot:default>
+      <template v-slot>
         <thead>
           <tr>
             <th class="text-center">Nombre</th>
@@ -45,23 +45,23 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in users" :key="index">
-            <td>{{ item.name }}</td>
-            <td>{{ item.lastname }}</td>
-            <td>{{ item.email }}</td>
-            <td>{{ item.finalDate }}</td>
+          <tr v-for="(itemUsers, index) in users" :key="index">
+            <td>{{ itemUsers.name }}</td>
+            <td>{{ itemUsers.lastname }}</td>
+            <td>{{ itemUsers.email }}</td>
+            <td>{{ itemUsers.finalDate }}</td>
             <td>
-              {{ campuses.find((dep) => dep.id === item.campus).name }}
+              {{ campuses.find((camp) => camp.id === itemUsers.campus).name }}
             </td>
             <td>
-              <v-icon :color="item.active ? 'green darken-2' : 'red'">{{
-                item.active ? "how_to_reg" : "unpublished"
+              <v-icon :color="itemUsers.active ? 'deep-purple darken-2' : 'red'">{{
+                itemUsers.active ? "how_to_reg" : "unpublished"
               }}</v-icon>
             </td>
             <td>
-              <v-icon small @click="viewUser(item)">visibility</v-icon>
-              <v-icon small @click="viewEdit(item)">edit</v-icon>
-              <v-icon small @click="getUserDelete(item)">delete</v-icon>
+              <v-icon small @click="viewUser(itemUsers)">visibility</v-icon>
+              <v-icon small @click="viewEdit(itemUsers)">edit</v-icon>
+              <v-icon small @click="getUserDelete(itemUsers)">delete</v-icon>
             </td>
           </tr>
         </tbody>
@@ -88,10 +88,10 @@
             >
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="closeDelete"
+              <v-btn color="deep-purple darken-2" text @click="closeDelete"
                 >Cancelar</v-btn
               >
-              <v-btn color="blue darken-1" text @click="deleteUsers(itemDelete)"
+              <v-btn color="deep-purple darken-2" text @click="deleteUsers(itemDelete)"
                 >OK</v-btn
               >
               <v-spacer></v-spacer>
@@ -103,7 +103,7 @@
         <v-dialog v-model="dialogEdit" max-width="500px">
           <v-card shaped elevation="17">
             <v-card-title class="headline justify-center"
-              >Editar un</v-card-title
+              >Editar un usuario</v-card-title
             >
             <v-form>
               <v-container>
@@ -274,21 +274,21 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(item, index) in results" :key="index">
-                  <td>{{ item.name }}</td>
-                  <td>{{ item.lastname }}</td>
-                  <td>{{ item.email }}</td>
-                  <td>{{ item.initDate }}</td>
-                  <td>{{ item.finalDate }}</td>
+                <tr v-for="(itemUsers, index) in results" :key="index">
+                  <td>{{ itemUsers.name }}</td>
+                  <td>{{ itemUsers.lastname }}</td>
+                  <td>{{ itemUsers.email }}</td>
+                  <td>{{ itemUsers.initDate }}</td>
+                  <td>{{ itemUsers.finalDate }}</td>
                   <td>
                     {{
-                      campuses.find((dep) => dep.id === item.campus)
+                      campuses.find((camp) => camp.id === itemUsers.campus)
                         .name
                     }}
                   </td>
                   <td>
-                    <v-icon :color="item.active ? 'deep-purple darken-2' : 'red'">{{
-                      item.active ? "how_to_reg" : "unpublished"
+                    <v-icon :color="itemUsers.active ? 'deep-purple darken-2' : 'red'">{{
+                      itemUsers.active ? "how_to_reg" : "unpublished"
                     }}</v-icon>
                   </td>
                 </tr>
@@ -326,12 +326,13 @@
 </template>
 
 <script>
-//import { db } from "../main";
 export default {
   data() {
     return {
       items: ["name", "campus"],
       itemView: Object,
+      itemDelete: Object,
+      itemEdit: Object,
       filter: "",
       search: "",
       results: [],
@@ -343,8 +344,6 @@ export default {
       dialogError: false,
       dialogSearch: false,
       dialogEmptyResults: false,
-      itemDelete: Object,
-      itemEdit: Object,
       menu1: false,
       menu2: false,
       nameRules: [
@@ -368,9 +367,9 @@ export default {
           password.length >= 8 || "Password must be at least 8 characters",
       ],
       dateRules: [(date) => !!date || "Date is required"],
-      //campusRules: [
-        //(campus) => !!campus || "campus is required",
-      //],
+      campusRules: [
+        (campus) => !!campus || "campus is required",
+      ],
     };
   },
   watch: {
@@ -463,6 +462,7 @@ export default {
     campuses() {
       return this.$store.state.campuses;
     },
+    
   },
 };
 </script>
