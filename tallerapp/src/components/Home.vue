@@ -35,23 +35,9 @@
           </v-card-actions>
         </v-form>
       </v-card>
-      <!-- Loader -->
-      <v-dialog v-model="dialogLoader" hide-overlay persistent width="300">
-        <v-card color="deep-purple lighten-2" dark>
-          <v-card-text>
-            Buscando en la Base de Datos...
-            <v-progress-linear
-              indeterminate
-              color="white"
-              class="mb-0"
-            ></v-progress-linear>
-          </v-card-text>
-        </v-card>
-      </v-dialog>
-
+      
       <!-- Revisar si el usuario se encuentra en la BD -->
       <v-dialog
-        v-if="!dialogLoader"
         v-model="dialogLogin"
         :loading="dialogLogin"
         max-width="500px"
